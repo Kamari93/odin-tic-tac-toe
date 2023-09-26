@@ -43,3 +43,22 @@ const GameBoard = (() => {
   // const currentBoard = GameBoard.getBoard(); // Get the current game board
   // GameBoard.clearBoard(); // Clear the game board
   
+
+// Function to render the game board on the webpage
+function renderGameBoard() {
+    const gameBoardContainer = document.getElementById('game-board');
+    const boardData = GameBoard.getBoard(); // Get the game board data from the module
+
+    // Clear any previous content in the container
+    gameBoardContainer.innerHTML = '';
+
+    // Loop through the game board data and create cells
+    for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.textContent = boardData[row][col]; // Use data from the GameBoard module
+            gameBoardContainer.appendChild(cell);
+        }
+    }
+}
