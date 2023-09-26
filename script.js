@@ -62,3 +62,16 @@ function renderGameBoard() {
         }
     }
 }
+
+// Example usage to set a cell to 'X'
+GameBoard.setCell(0, 0, 'X');
+renderGameBoard(); // Update the displayed game board
+console.log(GameBoard.getBoard());
+
+GameBoard.setCell(1, 1, 'X');
+renderGameBoard();
+console.log(GameBoard.getBoard());
+
+GameBoard.setCell(2, 2, 'X');
+renderGameBoard();
+console.log(GameBoard.getBoard());
