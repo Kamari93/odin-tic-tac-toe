@@ -1,0 +1,17 @@
+/* Add some basic styling for the game board cells */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  gap: 5px; /* Gap between cells */
+  width: 200px; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the grid horizontally */
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #000;
+  text-align: center;
+  font-size: 24px;
+  line-height: 50px; /* Vertically center text */
+}
