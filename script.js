@@ -1,5 +1,5 @@
 // Define the game board module
-const GameBoard = (() => {
+const gameBoard = (() => {
     // Private variables
     const board = [
       [null, null, null],
@@ -36,18 +36,17 @@ const GameBoard = (() => {
       setCell,
       clearBoard
     };
-  })();
+  })();  //immediately invoked function expression
   
   // Example usage
   // GameBoard.setCell(0, 0, 'X'); // Set the top-left cell to 'X'
   // const currentBoard = GameBoard.getBoard(); // Get the current game board
   // GameBoard.clearBoard(); // Clear the game board
-  
 
 // Function to render the game board on the webpage
 function renderGameBoard() {
     const gameBoardContainer = document.getElementById('game-board');
-    const boardData = GameBoard.getBoard(); // Get the game board data from the module
+    const boardData = gameBoard.getBoard(); // Get the game board data from the module
 
     // Clear any previous content in the container
     gameBoardContainer.innerHTML = '';
@@ -61,17 +60,40 @@ function renderGameBoard() {
             gameBoardContainer.appendChild(cell);
         }
     }
+};
+
+ // Player factory function
+ const Player = (name, symbol) => {
+    const makeMove = (row, col) => {
+        return gameBoard.setCell(row, col, symbol);
+    };
+
+    return {
+        name,
+        symbol,
+        makeMove
+    };
+};
+
+// Create players
+const playerX = Player('Player X', 'X');
+const playerO = Player('Player O', 'O');
+
+// Function to switch players
+let currentPlayer = playerX;
+function switchPlayer() {
+    currentPlayer = (currentPlayer === playerX) ? playerO : playerX;
 }
 
 // Example usage to set a cell to 'X'
-GameBoard.setCell(0, 0, 'X');
+gameBoard.setCell(0, 0, 'X');
 renderGameBoard(); // Update the displayed game board
-console.log(GameBoard.getBoard());
+console.log(gameBoard.getBoard());
 
-GameBoard.setCell(1, 1, 'X');
+gameBoard.setCell(1, 1, 'X');
 renderGameBoard();
-console.log(GameBoard.getBoard());
+console.log(gameBoard.getBoard());
 
-GameBoard.setCell(2, 2, 'X');
+gameBoard.setCell(2, 2, 'X');
 renderGameBoard();
-console.log(GameBoard.getBoard());
+console.log(gameBoard.getBoard());

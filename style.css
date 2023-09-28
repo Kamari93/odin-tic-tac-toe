@@ -1,3 +1,8 @@
+/* * {
+  margin: 0;
+  padding: 0;
+} */
+
 /* Add some basic styling for the game board cells */
 .grid-container {
   display: grid;
