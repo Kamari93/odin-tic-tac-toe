@@ -12,6 +12,7 @@ const gameBoard = (() => {
   
     const setCell = (row, col, value) => {
       if (row >= 0 && row < 3 && col >= 0 && col < 3) {
+        // check if selected cell is empty
         if (board[row][col] === null) {
             board[row][col] = value; // Cell was empty, and the value was set
             return true;
@@ -63,7 +64,7 @@ function renderGameBoard() {
 };
 
  // Player factory function
- const Player = (name, symbol) => {
+ function Player(name, symbol){
     const makeMove = (row, col) => {
         return gameBoard.setCell(row, col, symbol);
     };
@@ -78,6 +79,13 @@ function renderGameBoard() {
 // Create players
 const playerX = Player('Player X', 'X');
 const playerO = Player('Player O', 'O');
+
+// Test factory function attributes
+console.log(playerX.symbol);
+console.log(playerO.symbol);
+
+// Test makeMove method from factory funct
+playerO.makeMove(2,0);
 
 // Function to switch players
 let currentPlayer = playerX;
