@@ -68,7 +68,22 @@ function renderGameBoard() {
                     renderGameBoard();
 
                     // check if a player has won or if draw using functs defined below
-                    if (checkWinner) return null;
+                    if (checkWinner()) {
+                        // Delay the alert to allow time for rendering
+                        setTimeout(() => {
+                            alert(`${currentPlayer.name} Won!`);
+                            resetGame();
+                        }, 0)
+                    } else if (checkDraw()) {
+                        // Delay the alert to allow time for rendering
+                        setTimeout(() => {
+                            alert(`it\'s a Draw!`)
+                            resetGame();
+                        }, 0)
+                    } else {
+                        // Switch to the other player
+                        switchPlayer();
+                    }
                 }
             })
         };
@@ -97,7 +112,7 @@ console.log(playerX.symbol);
 console.log(playerO.symbol);
 
 // Test makeMove method from factory funct
-playerO.makeMove(2,0);
+// playerO.makeMove(2,0);
 
 // Function to switch players
 let currentPlayer = playerX;
@@ -144,8 +159,32 @@ function checkWinner(){
     return false
 };
 
+// Function to check if the game is a draw - all rows and columns filled
+function checkDraw() {
+    // get current board data
+    let board = gameBoard.getBoard();
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (board[i][j] === null) {
+                // If there is an empty cell, the game is not a draw/filled
+                return false;
+            }
+        }
+    }
+    // All cells are filled, and no winner, so it's a draw
+    return true;
+};
+
+// Function to reset the game
+function resetGame() {
+    gameBoard.clearBoard();
+    currentPlayer = playerX;
+    renderGameBoard();
+};
 
 
+// initialize the gameboard 
+renderGameBoard();
 
 
 // Example usage to set a cell to 'X'
@@ -160,3 +199,4 @@ function checkWinner(){
 // gameBoard.setCell(2, 2, 'X');
 // renderGameBoard();
 // console.log(gameBoard.getBoard());
+
