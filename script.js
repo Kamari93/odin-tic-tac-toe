@@ -59,7 +59,19 @@ function renderGameBoard() {
             cell.classList.add('cell');
             cell.textContent = boardData[row][col]; // Use data from the GameBoard module
             gameBoardContainer.appendChild(cell);
-        }
+
+            // Add event listener for making moves on cell click
+            cell.addEventListener('click', () => {
+                // check if the cell is empty before change
+                if (gameBoard.setCell(row, col, currentPlayer.symbol)) {
+                    // update the gameboard display
+                    renderGameBoard();
+
+                    // check if a player has won or if draw using functs defined below
+                    if (checkWinner) return null;
+                }
+            })
+        };
     }
 };
 
@@ -90,18 +102,61 @@ playerO.makeMove(2,0);
 // Function to switch players
 let currentPlayer = playerX;
 function switchPlayer() {
-    currentPlayer = (currentPlayer === playerX) ? playerO : playerX;
-}
+    // currentPlayer = (currentPlayer === playerX) ? playerO : playerX;
+    if (currentPlayer === playerX) {
+        currentPlayer = playerO;
+    } else {
+        currentPlayer = playerX;
+    };
+    return currentPlayer;
+};
+
+// Function to check if the game is won
+function checkWinner(){
+    // retrieve the current board data from the module
+    let board = gameBoard.getBoard();
+
+    // check to see if rows match (3 in row) - left right
+    for (let i = 0; i < 3; i++) {
+        if(board[i][0] !== null && board[i][0] === board[i][1] && board[i][1] === board[i][2]) {
+            return true;
+        }
+    };
+
+    // check to see if columns match (3 in row) - top bottom
+    for (let j = 0; j < 3; j++) {
+        if (board[0][j] !== null && board[0][j] === board[1][j] && board[1][j] === board[2][j]) {
+            return true;
+        }
+    };
+
+    // check for diagnal matches - left diagnal
+    if (board[0][0] !== null && board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
+        return true;
+    };
+    
+    // check for diagnal matches - right diagnal
+    if (board[0][2] !== null && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
+        return true;
+    };
+
+    // if no matches/winner return false
+    return false
+};
+
+
+
+
 
 // Example usage to set a cell to 'X'
-gameBoard.setCell(0, 0, 'X');
-renderGameBoard(); // Update the displayed game board
-console.log(gameBoard.getBoard());
+// gameBoard.setCell(0, 0, 'X');
+// renderGameBoard(); // Update the displayed game board
+// console.log(gameBoard.getBoard());
 
-gameBoard.setCell(1, 1, 'X');
-renderGameBoard();
-console.log(gameBoard.getBoard());
+// gameBoard.setCell(1, 1, 'X');
+// renderGameBoard();
+// console.log(gameBoard.getBoard());
 
-gameBoard.setCell(2, 2, 'X');
-renderGameBoard();
-console.log(gameBoard.getBoard());
+// gameBoard.setCell(2, 2, 'X');
+// renderGameBoard();
+// console.log(gameBoard.getBoard());
