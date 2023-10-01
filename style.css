@@ -20,3 +20,17 @@
   font-size: 24px;
   line-height: 50px; /* Vertically center text */
 }
+
+#score-board {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 30px;
+  /* grid-template-columns: repeat(3, 1fr); */
+}
+
+#score-board > p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

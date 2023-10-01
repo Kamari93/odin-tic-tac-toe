@@ -1,48 +1,48 @@
-// Define the game board module
+// Define the game board module the board is a 2-D array
 const gameBoard = (() => {
     // Private variables
     const board = [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null]
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
     ];
-  
+
     // Public methods
     const getBoard = () => board;
-  
+
     const setCell = (row, col, value) => {
-      if (row >= 0 && row < 3 && col >= 0 && col < 3) {
-        // check if selected cell is empty
-        if (board[row][col] === null) {
-            board[row][col] = value; // Cell was empty, and the value was set
-            return true;
-        } else {
-            return false; // Cell is already occupied
+        if (row >= 0 && row < 3 && col >= 0 && col < 3) {
+            // check if selected cell is empty
+            if (board[row][col] === null) {
+                board[row][col] = value; // Cell was empty, and the value was set
+                return true;
+            } else {
+                return false; // Cell is already occupied
+            }
         }
-      }
-      return false; // Invalid row or column
+        return false; // Invalid row or column
     };
-  
+
     const clearBoard = () => {
-      for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-          board[i][j] = null;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                board[i][j] = null;
+            }
         }
-      }
     };
-  
+
     // Public API
     return {
-      getBoard,
-      setCell,
-      clearBoard
+        getBoard,
+        setCell,
+        clearBoard
     };
-  })();  //immediately invoked function expression
-  
-  // Example usage
-  // GameBoard.setCell(0, 0, 'X'); // Set the top-left cell to 'X'
-  // const currentBoard = GameBoard.getBoard(); // Get the current game board
-  // GameBoard.clearBoard(); // Clear the game board
+})();  //immediately invoked function expression
+
+// Example usage
+// GameBoard.setCell(0, 0, 'X'); // Set the top-left cell to 'X'
+// const currentBoard = GameBoard.getBoard(); // Get the current game board
+// GameBoard.clearBoard(); // Clear the game board
 
 // Function to render the game board on the webpage
 function renderGameBoard() {
@@ -71,12 +71,16 @@ function renderGameBoard() {
                     if (checkWinner()) {
                         // Delay the alert to allow time for rendering
                         setTimeout(() => {
+                            // Update win counters
+                            updateWins();
                             alert(`${currentPlayer.name} Won!`);
                             resetGame();
                         }, 0)
                     } else if (checkDraw()) {
                         // Delay the alert to allow time for rendering
                         setTimeout(() => {
+                            // Update tie counter
+                            updateDraws();
                             alert(`it\'s a Draw!`)
                             resetGame();
                         }, 0)
@@ -90,8 +94,8 @@ function renderGameBoard() {
     }
 };
 
- // Player factory function
- function Player(name, symbol){
+// Player factory function
+function Player(name, symbol) {
     const makeMove = (row, col) => {
         return gameBoard.setCell(row, col, symbol);
     };
@@ -102,6 +106,11 @@ function renderGameBoard() {
         makeMove
     };
 };
+
+// Variables to keep track of wins and draws
+let xWins = 0;
+let draws = 0;
+let oWins = 0;
 
 // Create players
 const playerX = Player('Player X', 'X');
@@ -127,13 +136,13 @@ function switchPlayer() {
 };
 
 // Function to check if the game is won
-function checkWinner(){
+function checkWinner() {
     // retrieve the current board data from the module
     let board = gameBoard.getBoard();
 
     // check to see if rows match (3 in row) - left right
     for (let i = 0; i < 3; i++) {
-        if(board[i][0] !== null && board[i][0] === board[i][1] && board[i][1] === board[i][2]) {
+        if (board[i][0] !== null && board[i][0] === board[i][1] && board[i][1] === board[i][2]) {
             return true;
         }
     };
@@ -149,7 +158,7 @@ function checkWinner(){
     if (board[0][0] !== null && board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
         return true;
     };
-    
+
     // check for diagnal matches - right diagnal
     if (board[0][2] !== null && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
         return true;
@@ -175,6 +184,23 @@ function checkDraw() {
     return true;
 };
 
+// function to update win counters
+function updateWins() {
+    if (currentPlayer === playerX) {
+        xWins++;
+        document.getElementById('x-wins').textContent = xWins;
+    } else if (currentPlayer === playerO) {
+        oWins++;
+        document.getElementById('o-wins').textContent = oWins;
+    }
+};
+
+// function to update tie counter
+function updateDraws() {
+    draws++;
+    document.getElementById('draws').textContent = draws;
+}
+
 // Function to reset the game
 function resetGame() {
     gameBoard.clearBoard();
@@ -182,6 +208,24 @@ function resetGame() {
     renderGameBoard();
 };
 
+// function to reset the scores and game board
+function resetScoreandGame() {
+    resetGame();
+
+    // Reset win and tie counters
+    xWins = 0;
+    oWins = 0;
+    draws = 0;
+
+    // Update the corresponding DOM elements
+    document.getElementById('x-wins').textContent = xWins;
+    document.getElementById('draws').textContent = draws;
+    document.getElementById('o-wins').textContent = oWins;
+}
+
+let reset = document.getElementById('reset')
+
+reset.addEventListener('click', resetScoreandGame);
 
 // initialize the gameboard 
 renderGameBoard();
@@ -200,3 +244,8 @@ renderGameBoard();
 // renderGameBoard();
 // console.log(gameBoard.getBoard());
 
+
+// Task
+// create a reset button that sets the scores and ties back to 0 when preseed
+// Add player name input (based on how many players) - changes player to custom name
+// Add cpu input - randomize cpu picks on board based on empty spaces and users value
