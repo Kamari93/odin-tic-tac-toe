@@ -224,7 +224,6 @@ function resetScoreandGame() {
 }
 
 let reset = document.getElementById('reset')
-
 reset.addEventListener('click', resetScoreandGame);
 
 // initialize the gameboard 
