@@ -12,7 +12,51 @@
     </div>
 
     <!-- Modal for the setup phase -->
-    
+    <div id="setup-modal" class="modal">
+      <div class="modal-content">
+          <p>How many players? (1 or 2)</p>
+          <input type="number" id="num-players" min="1" max="2">
+          <br>
+          <button onclick="handlePlayerSetup()">Next</button>
+      </div>
+    </div>
+
+    <!-- Player setup modal for 1 player -->
+    <div id="player1-setup-modal" class="modal">
+      <div class="modal-content">
+          <p>Player 1, choose 'X' or 'O'</p>
+          <select id="player1-symbol">
+              <option value="X">X</option>
+              <option value="O">O</option>
+          </select>
+          <br>
+          <label for="player1-name">Enter Player 1's name:</label>
+          <input type="text" id="player1-name">
+          <br>
+          <button onclick="startGame()">Start Game</button>
+      </div>
+    </div>
+
+    <div id="player2-setup-modal" class="modal">
+      <div class="modal-content">
+          <p>Player 1, choose 'X' or 'O'</p>
+          <select id="player1-symbol-2" onchange="updatePlayer2Symbol()">
+              <option value="X">X</option>
+              <option value="O">O</option>
+          </select>
+          <br>
+          <label for="player1-name-2">Enter Player 1's name:</label>
+          <input type="text" id="player1-name-2">
+          <br>
+          <p>Player 2, your symbol is: <span id="player2-symbol-display"></span></p>
+          <label for="player2-name">Enter Player 2's name:</label>
+          <input type="text" id="player2-name">
+          <br>
+          <button onclick="startGame()">Start Game</button>
+      </div>
+    </div>
+
+
     <div class="grid-container" id="game-board">
       <!-- The game board will be rendered here -->
     </div>

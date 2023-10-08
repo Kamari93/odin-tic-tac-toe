@@ -34,3 +34,34 @@
   flex-direction: column;
   align-items: center;
 }
+
+
+/* Styling for the modals */
+.modal {
+  display: none;
+  position: fixed;
+  /* top: 50%; */
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  width: 85%;
+  height: 25%;
+  text-align: center;
+    /* background-color: #fff; */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+};
+
+/* .modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+} */
+
+.modal-content {
+  width: 300px; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the modal content horizontally */
+}
