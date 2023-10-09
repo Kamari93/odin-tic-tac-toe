@@ -1,3 +1,5 @@
+console.log("Keep Going 🍊 🌊...")
+
 // variables to assign players and attributes (objects from player factory fn)
 let playerX;
 let playerO;
@@ -307,7 +309,7 @@ function handlePlayerMove(row, col) {
                 updateWins();
                 alert(`${currentPlayer.name} Won!`);
                 resetGame();
-            }, 0);
+            }, 500);
         } else if (checkDraw()) {
             // Delay the alert to allow time for rendering
             setTimeout(() => {
@@ -315,7 +317,7 @@ function handlePlayerMove(row, col) {
                 updateDraws();
                 alert(`It's a Draw!`);
                 resetGame();
-            }, 0);
+            }, 500);
         } else {
             // Switch to the other player
             switchPlayer();
@@ -350,7 +352,7 @@ function makeCPUMove() {
             updateWins();
             alert(`${currentPlayer.name} Won!`);
             resetGame();
-        }, 0);
+        }, 500);
     } else if (checkDraw()) {
         // Delay the alert to allow time for rendering
         setTimeout(() => {
@@ -358,7 +360,7 @@ function makeCPUMove() {
             updateDraws();
             alert(`It's a Draw!`);
             resetGame();
-        }, 0);
+        }, 500);
     } else {
         // Switch to the other player
         switchPlayer();
