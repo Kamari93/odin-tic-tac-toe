@@ -175,7 +175,7 @@ function resetGame() {
     gameBoard.clearBoard();
     currentPlayer = playerX;
     renderGameBoard();
-    // check if current player is cpu and make them auto move each round
+    // check if current player is cpu and if so make them auto move each round
     checkCPUMove();
 };
 
@@ -249,6 +249,9 @@ function startGame() {
     const player2Symbol = document.getElementById('player2-symbol-display').textContent;
     const player2Name = document.getElementById('player2-name').value;
 
+    const xTitleScore = document.getElementById('x-title');
+    const oTitleScore = document.getElementById('o-title');
+
 
     // use loose equality operator to check numPlayersInput since val is str-num
     if (numPlayersInput == 1) {
@@ -265,7 +268,11 @@ function startGame() {
         playerO = (player1SymbolII === 'O') ? Player(player1NameII, 'O') : Player(player2Name, 'O');
     }
 
-    // Set current player to player1
+    // Dynamically set the score titles to the players' inputted names w/out alt format using innerHTML
+    xTitleScore.innerHTML = `${playerX.name}(X): <span id="x-wins">${xWins}</span>`;
+    oTitleScore.innerHTML = `${playerO.name}(O): <span id="o-wins">${oWins}</span>`;
+
+    // Set current player to player with X val as X always goes first
     currentPlayer = playerX;
 
     // Initialize the game board (clear previous state)
@@ -398,3 +405,7 @@ function makeCPUMove() {
 // gameBoard.setCell(2, 2, 'X');
 // renderGameBoard();
 // console.log(gameBoard.getBoard());
+
+// Example of using the replace fn to change score titles from startGame fn
+// xTitleScore.textContent = xTitleScore.textContent.replace(/Player X/g, `${playerX.name} (${playerX.symbol})`);
+// oTitleScore.textContent = oTitleScore.textContent.replace(/Player O/g, `${playerO.name} (${playerO.symbol})`);
