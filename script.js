@@ -229,8 +229,6 @@ function handlePlayerSetup() {
 
         // Hide the initial setup modal
         document.getElementById('setup-modal').style.display = 'none';
-
-        console.log("Next Modal")
     }
 }
 
