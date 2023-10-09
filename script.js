@@ -1,3 +1,15 @@
+// variables to assign players and attributes (objects from player factory fn)
+let playerX;
+let playerO;
+
+// variable to keep track of current player (observe moves and when to use CPU fn)
+let currentPlayer;
+
+// Variables to keep track of wins and draws
+let xWins = 0;
+let draws = 0;
+let oWins = 0;
+
 // Define the game board module the board is a 2-D array
 const gameBoard = (() => {
     // Private variables
@@ -39,10 +51,6 @@ const gameBoard = (() => {
     };
 })();  //immediately invoked function expression
 
-// Example usage
-// GameBoard.setCell(0, 0, 'X'); // Set the top-left cell to 'X'
-// const currentBoard = GameBoard.getBoard(); // Get the current game board
-// GameBoard.clearBoard(); // Clear the game board
 
 // Function to render the game board on the webpage
 function renderGameBoard() {
@@ -62,34 +70,8 @@ function renderGameBoard() {
 
             // Add event listener for making moves on cell click
             cell.addEventListener('click', () => {
-                // check if the cell is empty before change
-                if (gameBoard.setCell(row, col, currentPlayer.symbol)) {
-                    // update the gameboard display
-                    renderGameBoard();
-
-                    // check if a player has won or if draw using functs defined below
-                    if (checkWinner()) {
-                        // Delay the alert to allow time for rendering
-                        setTimeout(() => {
-                            // Update win counters
-                            updateWins();
-                            alert(`${currentPlayer.name} Won!`);
-                            resetGame();
-                        }, 0)
-                    } else if (checkDraw()) {
-                        // Delay the alert to allow time for rendering
-                        setTimeout(() => {
-                            // Update tie counter
-                            updateDraws();
-                            alert(`it\'s a Draw!`)
-                            resetGame();
-                        }, 0)
-                    } else {
-                        // Switch to the other player
-                        switchPlayer();
-                    }
-                }
-            })
+                handlePlayerMove(row, col);
+            });
         };
     }
 };
@@ -108,26 +90,10 @@ function Player(name, symbol, isCPU = false) {
     };
 };
 
-// Variables to keep track of wins and draws
-let xWins = 0;
-let draws = 0;
-let oWins = 0;
-
-// Create players
-let playerX = Player('Player X', 'X');
-let playerO = Player('Player O', 'O');
-
-// Test factory function attributes
-console.log(playerX.symbol);
-console.log(playerO.symbol);
-
-// Test makeMove method from factory funct
-// playerO.makeMove(2,0);
-
 // Function to switch players
-let currentPlayer = playerX;
 function switchPlayer() {
     // currentPlayer = (currentPlayer === playerX) ? playerO : playerX;
+    console.log(currentPlayer)
     if (currentPlayer === playerX) {
         currentPlayer = playerO;
     } else {
@@ -207,6 +173,8 @@ function resetGame() {
     gameBoard.clearBoard();
     currentPlayer = playerX;
     renderGameBoard();
+    // check if current player is cpu and make them auto move each round
+    checkCPUMove();
 };
 
 // function to reset the scores and game board
@@ -230,19 +198,6 @@ reset.addEventListener('click', resetScoreandGame);
 // initialize the gameboard 
 renderGameBoard();
 
-
-// Example usage to set a cell to 'X'
-// gameBoard.setCell(0, 0, 'X');
-// renderGameBoard(); // Update the displayed game board
-// console.log(gameBoard.getBoard());
-
-// gameBoard.setCell(1, 1, 'X');
-// renderGameBoard();
-// console.log(gameBoard.getBoard());
-
-// gameBoard.setCell(2, 2, 'X');
-// renderGameBoard();
-// console.log(gameBoard.getBoard());
 
 // Display the initial setup modal when the page loads
 document.getElementById('setup-modal').style.display = 'block';
@@ -283,30 +238,35 @@ function updatePlayer2Symbol() {
     document.getElementById('player2-symbol-display').textContent = (player1Symbol === 'X') ? 'O' : 'X';
 }
 
-
 // Function to start the game
 function startGame() {
+
     const numPlayersInput = document.getElementById('num-players').value;
     const player1Symbol = document.getElementById('player1-symbol').value;
+    const player1SymbolII = document.getElementById('player1-symbol-2').value;
+    const player1NameII = document.getElementById("player1-name-2").value;
     const player1Name = document.getElementById('player1-name').value;
     const player2Symbol = document.getElementById('player2-symbol-display').textContent;
     const player2Name = document.getElementById('player2-name').value;
 
-    // Determine which player chose 'X' and assign accordingly
-    playerX = (player1Symbol === 'X') ? Player(player1Name, 'X') : Player(player2Name, 'X');
 
-    // Determine which player chose 'O' and assign accordingly
-    playerO = (player1Symbol === 'O') ? Player(player1Name, 'O') : Player(player2Name, 'O');
+    // use loose equality operator to check numPlayersInput since val is str-num
+    if (numPlayersInput == 1) {
+        // Determine which player chose 'X' and assign accordingly 
+        playerX = (player1Symbol === 'X') ? Player(player1Name, 'X') : Player('CPU', 'X', isCPU = true);
 
+        // Determine which player chose 'O' and assign accordingly
+        playerO = (player1Symbol === 'O') ? Player(player1Name, 'O') : Player('CPU', 'O', isCPU = true);
+
+    } else if (numPlayersInput == 2) {
+        // Determine which player chose 'X' and assign accordingly
+        playerX = (player1SymbolII === 'X') ? Player(player1NameII, 'X') : Player(player2Name, 'X');
+        // Determine which player chose 'O' and assign accordingly
+        playerO = (player1SymbolII === 'O') ? Player(player1NameII, 'O') : Player(player2Name, 'O');
+    }
 
     // Set current player to player1
     currentPlayer = playerX;
-
-    if (numPlayersInput === 1 && player1Symbol === 'X') {
-        playerO.isCPU = true;
-    } else if (numPlayersInput === 1 && player1Symbol === 'O') {
-        playerX.isCPU = true;
-    }
 
     // Initialize the game board (clear previous state)
     gameBoard.clearBoard();
@@ -319,19 +279,58 @@ function startGame() {
     document.getElementById('player1-setup-modal').style.display = 'none';
     document.getElementById('player2-setup-modal').style.display = 'none';
 
-    // If there's only one player playing and it's a CPU, make a move after a short delay
-    if (numPlayersInput == 1 && currentPlayer.isCPU) {
-        // currentPlayer.name = 'CPU'
-        currentPlayer = playerO;
-        setTimeout(makeCPUmove, 500);
-    }
+    console.log(numPlayersInput)
 
-    // console.log(currentPlayer.symbol)
+    // If there's only one player playing and it's a CPU, make a move after a short delay
+    checkCPUMove();
+}
+
+// If there's only one player playing and it's a CPU, make a move after a short delay
+function checkCPUMove() {
+    if (currentPlayer.isCPU) {
+        setTimeout(makeCPUMove, 500);
+    }
+}
+
+
+// Function to handle player moves
+function handlePlayerMove(row, col) {
+    if (gameBoard.setCell(row, col, currentPlayer.symbol)) {
+        // update the gameboard display
+        renderGameBoard();
+
+        // check if a player has won or if draw using functs defined below
+        if (checkWinner()) {
+            // Delay the alert to allow time for rendering
+            setTimeout(() => {
+                // Update win counters
+                updateWins();
+                alert(`${currentPlayer.name} Won!`);
+                resetGame();
+            }, 0);
+        } else if (checkDraw()) {
+            // Delay the alert to allow time for rendering
+            setTimeout(() => {
+                // Update tie counter
+                updateDraws();
+                alert(`It's a Draw!`);
+                resetGame();
+            }, 0);
+        } else {
+            // Switch to the other player
+            switchPlayer();
+            // If the next player is a CPU, make a move
+            if (currentPlayer.isCPU) {
+                // makeCPUMove();
+                setTimeout(makeCPUMove, 500)
+            }
+        }
+    }
 }
 
 
 // Function to make a move for the CPU player
-function makeCPUmove() {
+function makeCPUMove() {
     // Generate random row and column indices for the CPU move
     let row, col;
     do {
@@ -365,3 +364,37 @@ function makeCPUmove() {
         switchPlayer();
     }
 }
+
+
+
+/** References to functions */
+
+// Create players
+// let playerX = Player('Player X', 'X');
+// let playerO = Player('CPU', 'O', isCPU = true);
+
+// Example usage
+// GameBoard.setCell(0, 0, 'X'); // Set the top-left cell to 'X'
+// const currentBoard = GameBoard.getBoard(); // Get the current game board
+// GameBoard.clearBoard(); // Clear the game board
+
+// Test factory function attributes
+// console.log(playerX.symbol);
+// console.log(playerO.symbol);
+
+// Test makeMove method from factory funct
+// playerO.makeMove(2,0);
+
+
+// Example usage to set a cell to 'X'
+// gameBoard.setCell(0, 0, 'X');
+// renderGameBoard(); // Update the displayed game board
+// console.log(gameBoard.getBoard());
+
+// gameBoard.setCell(1, 1, 'X');
+// renderGameBoard();
+// console.log(gameBoard.getBoard());
+
+// gameBoard.setCell(2, 2, 'X');
+// renderGameBoard();
+// console.log(gameBoard.getBoard());
