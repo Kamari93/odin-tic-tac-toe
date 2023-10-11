@@ -95,7 +95,7 @@ function Player(name, symbol, isCPU = false) {
 // Function to switch players
 function switchPlayer() {
     // currentPlayer = (currentPlayer === playerX) ? playerO : playerX;
-    console.log(currentPlayer)
+    // console.log(currentPlayer)
     if (currentPlayer === playerX) {
         currentPlayer = playerO;
     } else {
@@ -240,7 +240,7 @@ function updatePlayer2Symbol() {
     document.getElementById('player2-symbol-display').textContent = (player1Symbol === 'X') ? 'O' : 'X';
 }
 
-// Function to start the game
+// Function to  the game
 function startGame() {
 
     const numPlayersInput = document.getElementById('num-players').value;
@@ -314,16 +314,18 @@ function handlePlayerMove(row, col) {
             setTimeout(() => {
                 // Update win counters
                 updateWins();
-                alert(`${currentPlayer.name} Won!`);
-                resetGame();
+                // alert(`${currentPlayer.name} Won!`);
+                showResult(`${currentPlayer.name} Won!`);
+                // resetGame();
             }, 500);
         } else if (checkDraw()) {
             // Delay the alert to allow time for rendering
             setTimeout(() => {
                 // Update tie counter
                 updateDraws();
-                alert(`It's a Draw!`);
-                resetGame();
+                // alert(`It's a Draw!`);
+                showResult("It's a Draw!");
+                // resetGame();
             }, 500);
         } else {
             // Switch to the other player
@@ -358,21 +360,41 @@ function makeCPUMove() {
         setTimeout(() => {
             // Update win counters
             updateWins();
-            alert(`${currentPlayer.name} Won!`);
-            resetGame();
+            // alert(`${currentPlayer.name} Won!`);
+            showResult(`${currentPlayer.name} Won!`);
+            // resetGame();
         }, 500);
     } else if (checkDraw()) {
         // Delay the alert to allow time for rendering
         setTimeout(() => {
             // Update tie counter
             updateDraws();
-            alert(`It's a Draw!`);
-            resetGame();
+            // alert(`It's a Draw!`);
+            showResult("It's a Draw!");
+            // resetGame();
         }, 500);
     } else {
         // Switch to the other player
         switchPlayer();
     }
+}
+
+
+// Function to display the result ribbon
+function showResult(message) {
+    const resultDisplay = document.getElementById('result-display');
+    const resultMessage = document.getElementById('result-message');
+
+    resultMessage.textContent = message;
+    resultDisplay.style.display = 'block';
+    // console.log('Result Displayed:', message);
+}
+
+// Function to close the result display
+function closeResultDisplay() {
+    const resultDisplay = document.getElementById('result-display');
+    resultDisplay.style.display = 'none';
+    resetGame();
 }
 
 
@@ -427,3 +449,48 @@ renderGameBoard();
 // Example of using the replace fn to change score titles from startGame fn
 // xTitleScore.textContent = xTitleScore.textContent.replace(/Player X/g, `${playerX.name} (${playerX.symbol})`);
 // oTitleScore.textContent = oTitleScore.textContent.replace(/Player O/g, `${playerO.name} (${playerO.symbol})`);
+
+
+
+// Function to handle hover effect on cells
+function handleCellHover(row, col) {
+    const currentBoard = gameBoard.getBoard();
+
+    // Check if the cell is empty and it's the player's turn
+    if (currentBoard[row][col] === null && currentPlayer.isCPU === false) {
+        // Create a temporary element for the hover effect
+        const hoverElement = document.createElement('div');
+        hoverElement.classList.add('hover-effect');
+        hoverElement.textContent = currentPlayer.symbol;
+
+        // Position the hover element on the cell
+        const cell = document.querySelector(`#game-board .cell[data-row="${row}"][data-col="${col}"]`);
+        const rect = cell.getBoundingClientRect();
+        hoverElement.style.top = rect.top + 'px';
+        hoverElement.style.left = rect.left + 'px';
+
+        // Append the hover element to the body
+        document.body.appendChild(hoverElement);
+
+        // Remove the hover element after a short delay
+        setTimeout(() => {
+            document.body.removeChild(hoverElement);
+        }, 500);
+    }
+}
+
+// Add event listeners for hover effect to each cell
+function addHoverEffectToCells() {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach((cell) => {
+        cell.addEventListener('mouseover', function () {
+            const row = parseInt(this.dataset.row);
+            const col = parseInt(this.dataset.col);
+            handleCellHover(row, col);
+        });
+    });
+}
+
+// Call the function to add hover effect to cells after rendering the game board
+//   renderGameBoard();
+addHoverEffectToCells();

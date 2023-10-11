@@ -16,7 +16,7 @@
     <!-- Modal for the setup phase -->
     <div id="setup-modal" class="modal">
       <div class="modal-content">
-          <p>How many players? (1 or 2)</p>
+          <label for="num-players"><p>How many players? (1 or 2)</p></label>
           <input type="number" id="num-players" min="1" max="2">
           <br>
           <button onclick="handlePlayerSetup()">Next</button>
@@ -27,7 +27,7 @@
     <!-- Player setup modal for 1 player -->
     <div id="player1-setup-modal" class="modal">
       <div class="modal-content">
-          <p>Player 1, choose 'X' or 'O'</p>
+          <label for="player1-symbol"><p>Player 1, choose 'X' or 'O'</p></label>
           <select id="player1-symbol">
               <option value="X">X</option>
               <option value="O">O</option>
@@ -43,7 +43,7 @@
 
     <div id="player2-setup-modal" class="modal">
       <div class="modal-content">
-          <p>Player 1, choose 'X' or 'O'</p>
+          <label for="player1-symbol-2"><p>Player 1, choose 'X' or 'O'</p></label>
           <select id="player1-symbol-2" onchange="updatePlayer2Symbol()">
               <option value="X">X</option>
               <option value="O">O</option>
@@ -59,6 +59,12 @@
           <button onclick="startGame()">Start Game</button>
           <!-- <button id="start-game-button-2">Start Game</button> -->
       </div>
+    </div>
+
+    <!-- Add this element for the display ribbon -->
+    <div id="result-display" class="result-display">
+      <p id="result-message"></p>
+      <button id="close-button" onclick="closeResultDisplay()">X</button>
     </div>
 
 
