@@ -101,6 +101,8 @@ function switchPlayer() {
     } else {
         currentPlayer = playerX;
     };
+    // Update the current player display
+    updateCurrentPlayer();
     return currentPlayer;
 };
 
@@ -175,6 +177,8 @@ function resetGame() {
     gameBoard.clearBoard();
     currentPlayer = playerX;
     renderGameBoard();
+    // Update the current player display
+    updateCurrentPlayer();
     // check if current player is cpu and if so make them auto move each round
     checkCPUMove();
 };
@@ -197,8 +201,6 @@ function resetScoreandGame() {
 let reset = document.getElementById('reset')
 reset.addEventListener('click', resetScoreandGame);
 
-// initialize the gameboard 
-renderGameBoard();
 
 
 // Display the initial setup modal when the page loads
@@ -341,9 +343,10 @@ function makeCPUMove() {
     // Generate random row and column indices for the CPU move
     let row, col;
     do {
+        // math.floor will give random vals in range (0 - 2) for row and col since total count for both is 3
         row = Math.floor(Math.random() * 3);
         col = Math.floor(Math.random() * 3);
-        // keep generating random coordinates until find empty cell
+        // keep generating random coordinates until empty cell is found and pop w/ cpuMove
     } while (!gameBoard.setCell(row, col, currentPlayer.symbol));
 
     // Update the game board display
@@ -371,6 +374,21 @@ function makeCPUMove() {
         switchPlayer();
     }
 }
+
+
+// Function to update the display of the current player's symbol in the header
+function updateCurrentPlayer() {
+    const currentPlayerDisplay = document.getElementById('current-player');
+    currentPlayerDisplay.textContent = `${currentPlayer.name}'s Turn: ${currentPlayer.symbol}`;
+}
+
+// Function to Reload the page
+function restartPage() {
+    location.reload();
+}
+
+// initialize the gameboard 
+renderGameBoard();
 
 
 
