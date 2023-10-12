@@ -1,11 +1,23 @@
-/* * {
-  margin: 0;
-  padding: 0;
-} */
+:root {
+  /* --primary-color: rgb(109, 139, 105); */
+  --primary-color: rgb(206, 212, 205);
+  /* --secondary-color:rgb(162, 169, 161); */
+  --secondary-color:rgb(66, 89, 91);
+  --third-color: orange;
+  --fourth-color: rgb(111, 150, 150);
+  --fifth-color: rgb(120, 191, 120)
+}
 
-/* body {
-  background: olive;
-} */
+* {
+  /* margin: 0; */
+  /* padding: 0; */
+  color: rgb(131, 143, 131);
+}
+
+
+body {
+  background: var(--secondary-color);
+}
 
 .header {
   display: flex;
@@ -17,14 +29,15 @@
 #reset, #restart {
   padding: 10px;
   cursor: pointer;
-  background-color: #3498db;
-  color: #fff;
+  background-color: var(--primary-color);
+  /* color: #fff; */
+  color: var(--fourth-color);
   border: none;
   border-radius: 5px;
 }
 
 #reset:hover, #restart:hover {
-  background-color: #2980b9;
+  background-color: var(--primary-color);
 }
 
 /* Add some basic styling for the game board cells */
@@ -34,25 +47,38 @@
   gap: 30px; /* Gap between cells */
   max-width: 400px; /* Adjust the width as needed */
   margin: 0 auto; /* Center the grid horizontally */
+  margin-top: 5%;
 }
 
 .cell {
   width: 90px;
   height: 90px;
-  border: 1px solid #000;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
   text-align: center;
   font-size: 40px;
   /* line-height: 50px; Vertically center text */
   line-height: 100px;
   text-align: center;
+  /* box-shadow: 0px 4px 8px rgba(226, 221, 221, 0.1); */
+  box-shadow: 0px 20px 19px -5px #111; 
+}
+
+.cell.X {
+  color: var(--third-color);  /* Set the text color for 'X' */
+}
+
+.cell.O {
+  color: var(--fifth-color);   /* Set the text color for 'O' */
 }
 
 
 #score-board {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content:center;
   margin-top: 30px;
+  gap: 10px;
   /* grid-template-columns: repeat(3, 1fr); */
 }
 
@@ -60,12 +86,52 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* border: 2px solid var(--primary-color); */
+  font-weight: 700;
+  width: 200px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#x-title {
+  background: var(--third-color);
+  border: 2px solid var(--primary-color);
+  color: white;
+}
+
+#x-wins {
+  color: white;
+}
+
+#draws-title {
+  background: var(--primary-color);
+  border: 2px solid rgb(201, 233, 226);
+  color: var(--secondary-color);
+}
+
+#draws {
+  color: var(--secondary-color);
+}
+
+#o-title {
+  background: var(--fifth-color);
+  border: 2px solid var(--primary-color);
+  color: white;
+}
+
+#o-wins {
+  color: white;
+}
+
+#current-player {
+  width: 150px;
+  text-align: center;
 }
 
 .modal {
   display: none;
   position: fixed;
-  top: 10%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
@@ -78,7 +144,7 @@
 
 
 .modal-content button:hover {
-  background-color: #3498db;
+  background-color: var(--primary-color);
   color: #fff;
 }
 
@@ -134,8 +200,9 @@
 }
 
 .modal-content button {
-  background-color: #3498db;
-  color: #fff;
+  background-color: var(--primary-color);
+  /* color: #fff; */
+  color: var(--fourth-color);
   padding: 8px;
   border: none;
   border-radius: 3px;
@@ -143,7 +210,7 @@
 }
 
 .modal-content button:hover {
-  background-color: #2980b9;
+  background-color: var(--primary-color);
 }
 
 
@@ -157,7 +224,7 @@
   width: 30%;
   /* height: 30%; */
   transform: translate(-50%, -50%);
-  background-color: #3498db;
+  background-color: var(--primary-color);
   color: #fff;
   padding: 15px;
   border-radius: 10px;
@@ -198,6 +265,6 @@
   position: fixed;
   font-size: 40px;
   font-weight: bold;
-  color: #3498db;
+  color: var(--primary-color);
   pointer-events: none; /* Allow clicking through the hover element */
 }

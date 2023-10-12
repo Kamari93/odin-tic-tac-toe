@@ -68,6 +68,12 @@ function renderGameBoard() {
             const cell = document.createElement('div');
             cell.classList.add('cell');
             cell.textContent = boardData[row][col]; // Use data from the GameBoard module
+
+            // Dynamically set the class based on the content
+            if (boardData[row][col] === 'X' || boardData[row][col] === 'O') {
+                cell.classList.add(boardData[row][col]);
+            }
+
             gameBoardContainer.appendChild(cell);
 
             // Add event listener for making moves on cell click
@@ -271,8 +277,8 @@ function startGame() {
     }
 
     // Dynamically set the score titles to the players' inputted names w/out alt format using innerHTML
-    xTitleScore.innerHTML = `${playerX.name}(X): <span id="x-wins">${xWins}</span>`;
-    oTitleScore.innerHTML = `${playerO.name}(O): <span id="o-wins">${oWins}</span>`;
+    xTitleScore.innerHTML = `${playerX.name}[X]: <span id="x-wins">${xWins}</span>`;
+    oTitleScore.innerHTML = `${playerO.name}[O]: <span id="o-wins">${oWins}</span>`;
 
     // Set current player to player with X val as X always goes first
     currentPlayer = playerX;
@@ -315,7 +321,7 @@ function handlePlayerMove(row, col) {
                 // Update win counters
                 updateWins();
                 // alert(`${currentPlayer.name} Won!`);
-                showResult(`${currentPlayer.name} Won!`);
+                showResult(`${currentPlayer.name} Won!`, currentPlayer.symbol);
                 // resetGame();
             }, 500);
         } else if (checkDraw()) {
@@ -324,7 +330,7 @@ function handlePlayerMove(row, col) {
                 // Update tie counter
                 updateDraws();
                 // alert(`It's a Draw!`);
-                showResult("It's a Draw!");
+                showResult("It's a Draw!", 'draw');
                 // resetGame();
             }, 500);
         } else {
@@ -361,7 +367,7 @@ function makeCPUMove() {
             // Update win counters
             updateWins();
             // alert(`${currentPlayer.name} Won!`);
-            showResult(`${currentPlayer.name} Won!`);
+            showResult(`${currentPlayer.name} Won!`, currentPlayer.symbol);
             // resetGame();
         }, 500);
     } else if (checkDraw()) {
@@ -370,7 +376,7 @@ function makeCPUMove() {
             // Update tie counter
             updateDraws();
             // alert(`It's a Draw!`);
-            showResult("It's a Draw!");
+            showResult("It's a Draw!", 'draw');
             // resetGame();
         }, 500);
     } else {
@@ -381,9 +387,25 @@ function makeCPUMove() {
 
 
 // Function to display the result ribbon
-function showResult(message) {
+function showResult(message, symbol) {
     const resultDisplay = document.getElementById('result-display');
     const resultMessage = document.getElementById('result-message');
+
+    console.log(symbol)
+    // Set the styles based on the winning symbol
+    if (symbol === 'X') {
+        resultMessage.style.setProperty('color', 'white');
+        resultDisplay.style.setProperty('color', 'white');
+        resultDisplay.style.setProperty('background-color', 'var(--third-color)');
+    } else if (symbol === 'O') {
+        resultMessage.style.setProperty('color', 'white');
+        resultDisplay.style.setProperty('color', 'white');
+        resultDisplay.style.setProperty('background-color', 'var(--fifth-color)');
+    } else if (symbol === 'draw') {
+        resultMessage.style.setProperty('color', 'var(--secondary-color)');
+        resultDisplay.style.setProperty('color', 'var(--secondary-color)');
+        resultDisplay.style.setProperty('background-color', 'var(--primary-color);');
+    }
 
     resultMessage.textContent = message;
     resultDisplay.style.display = 'block';
@@ -403,6 +425,26 @@ function updateCurrentPlayer() {
     const currentPlayerDisplay = document.getElementById('current-player');
     currentPlayerDisplay.textContent = `${currentPlayer.name}'s Turn: ${currentPlayer.symbol}`;
 }
+
+// logic to limit user name input
+let playerNameInputs = document.querySelectorAll('input[type="text"]');
+
+// Set the maximum allowed characters
+const maxCharacters = 10;
+
+// Add an event listener to each input field
+playerNameInputs.forEach(input => {
+    input.addEventListener('input', function () {
+        // Get the current value of the input field
+        const playerName = input.value;
+
+        // Check if the length exceeds the maximum characters
+        if (playerName.length > maxCharacters) {
+            // Trim the input to the maximum allowed characters
+            input.value = playerName.slice(0, maxCharacters);
+        }
+    });
+});
 
 // Function to Reload the page
 function restartPage() {
