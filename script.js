@@ -12,6 +12,13 @@ let xWins = 0;
 let draws = 0;
 let oWins = 0;
 
+// add flag to keep track of board disabled state
+let isBoardDisabled = false;
+
+// add hover symbol
+let hoverSymbol;
+
+
 // Define the game board module the board is a 2-D array
 const gameBoard = (() => {
     // Private variables
@@ -294,7 +301,7 @@ function startGame() {
     document.getElementById('player1-setup-modal').style.display = 'none';
     document.getElementById('player2-setup-modal').style.display = 'none';
 
-    console.log(numPlayersInput)
+    // console.log(numPlayersInput)
 
     // If there's only one player playing and it's a CPU, make a move after a short delay
     checkCPUMove();
@@ -310,6 +317,11 @@ function checkCPUMove() {
 
 // Function to handle player moves
 function handlePlayerMove(row, col) {
+    if (isBoardDisabled) {
+        // Board is disabled, do nothing...no clicking allowed
+        return;
+    };
+
     if (gameBoard.setCell(row, col, currentPlayer.symbol)) {
         // update the gameboard display
         renderGameBoard();
@@ -391,7 +403,9 @@ function showResult(message, symbol) {
     const resultDisplay = document.getElementById('result-display');
     const resultMessage = document.getElementById('result-message');
 
-    console.log(symbol)
+    // Disable the board
+    isBoardDisabled = true;
+
     // Set the styles based on the winning symbol
     if (symbol === 'X') {
         resultMessage.style.setProperty('color', 'white');
@@ -416,6 +430,9 @@ function showResult(message, symbol) {
 function closeResultDisplay() {
     const resultDisplay = document.getElementById('result-display');
     resultDisplay.style.display = 'none';
+
+    // Enable the board
+    isBoardDisabled = false;
     resetGame();
 }
 
