@@ -18,7 +18,6 @@ let isBoardDisabled = false;
 // add hover symbol
 let hoverSymbol;
 
-
 // Define the game board module the board is a 2-D array
 const gameBoard = (() => {
     // Private variables
@@ -116,6 +115,7 @@ function switchPlayer() {
     };
     // Update the current player display
     updateCurrentPlayer();
+
     return currentPlayer;
 };
 
@@ -290,6 +290,8 @@ function startGame() {
     // Set current player to player with X val as X always goes first
     currentPlayer = playerX;
 
+    hoverSymbol = currentPlayer.symbol;
+
     // Initialize the game board (clear previous state)
     gameBoard.clearBoard();
 
@@ -305,6 +307,8 @@ function startGame() {
 
     // If there's only one player playing and it's a CPU, make a move after a short delay
     checkCPUMove();
+
+    updateCurrentPlayer()
 }
 
 // If there's only one player playing and it's a CPU, make a move after a short delay
@@ -406,6 +410,9 @@ function showResult(message, symbol) {
     // Disable the board
     isBoardDisabled = true;
 
+    console.log(symbol)
+    console.log(`Player Symbol: ${currentPlayer.symbol}`)
+
     // Set the styles based on the winning symbol
     if (symbol === 'X') {
         resultMessage.style.setProperty('color', 'white');
@@ -418,7 +425,7 @@ function showResult(message, symbol) {
     } else if (symbol === 'draw') {
         resultMessage.style.setProperty('color', 'var(--secondary-color)');
         resultDisplay.style.setProperty('color', 'var(--secondary-color)');
-        resultDisplay.style.setProperty('background-color', 'var(--primary-color);');
+        resultDisplay.style.setProperty('background-color', 'var(--primary-color)');
     }
 
     resultMessage.textContent = message;
@@ -438,12 +445,30 @@ function closeResultDisplay() {
 
 
 // Function to update the display of the current player's symbol in the header
+// function updateCurrentPlayer() {
+//     const currentPlayerDisplay = document.getElementById('current-player');
+//     currentPlayerDisplay.textContent = `${currentPlayer.name}'s Turn: ${currentPlayer.symbol}`;
+// }
+
 function updateCurrentPlayer() {
     const currentPlayerDisplay = document.getElementById('current-player');
-    currentPlayerDisplay.textContent = `${currentPlayer.name}'s Turn: ${currentPlayer.symbol}`;
+    const playerNameSpan = document.getElementById('player-name');
+    const playerSymbolSpan = document.getElementById('player-symbol');
+
+    playerNameSpan.textContent = currentPlayer.name;
+    playerSymbolSpan.textContent = currentPlayer.symbol;
+
+    // Set text color based on the symbol
+    if (currentPlayer.symbol === 'X') {
+        playerSymbolSpan.style.color = 'var(--third-color)'; // Set color for X
+    } else if (currentPlayer.symbol === 'O') {
+        playerSymbolSpan.style.color = 'var(--fifth-color)'; // Set color for O
+    }
+
+    // currentPlayerDisplay.style.color = '#333'; // Set default text color
 }
 
-// logic to limit user name input
+/** Start logic to limit user name input */
 let playerNameInputs = document.querySelectorAll('input[type="text"]');
 
 // Set the maximum allowed characters
@@ -462,6 +487,7 @@ playerNameInputs.forEach(input => {
         }
     });
 });
+/** End logic to limit user name input */
 
 // Function to Reload the page
 function restartPage() {
