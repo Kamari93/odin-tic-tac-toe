@@ -104,7 +104,7 @@ function handleCellHover(row, col) {
     // select the specific cell based on the row and col indices in the grid. The formula (row * 3 + col + 1) is used to calculate the cell's position in a linear order within the grid. + 1: row * 3: This calculates the starting index of the row in a linear order (assuming a 3x3 grid). col: This represents the column index within the row. It adds 1 because the :nth-child selector uses a 1-based index (unlike JavaScript arrays which are 0-based).
     const cell = document.querySelector(`.grid-container .cell:nth-child(${row * 3 + col + 1})`);
 
-    if (cell.textContent === '' && currentPlayer) {
+    if (cell.textContent === '' && currentPlayer && !isBoardDisabled) {
         // Only apply hover effect to empty cells
         cell.classList.add('hover-effect');
         cell.textContent = currentPlayer.symbol;
@@ -584,45 +584,3 @@ renderGameBoard();
 
 
 
-// // Function to handle hover effect on cells
-// function handleCellHover(row, col) {
-//     const currentBoard = gameBoard.getBoard();
-
-//     // Check if the cell is empty and it's the player's turn
-//     if (currentBoard[row][col] === null && currentPlayer.isCPU === false) {
-//         // Create a temporary element for the hover effect
-//         const hoverElement = document.createElement('div');
-//         hoverElement.classList.add('hover-effect');
-//         hoverElement.textContent = currentPlayer.symbol;
-
-//         // Position the hover element on the cell
-//         const cell = document.querySelector(`#game-board .cell[data-row="${row}"][data-col="${col}"]`);
-//         const rect = cell.getBoundingClientRect();
-//         hoverElement.style.top = rect.top + 'px';
-//         hoverElement.style.left = rect.left + 'px';
-
-//         // Append the hover element to the body
-//         document.body.appendChild(hoverElement);
-
-//         // Remove the hover element after a short delay
-//         setTimeout(() => {
-//             document.body.removeChild(hoverElement);
-//         }, 500);
-//     }
-// }
-
-// // Add event listeners for hover effect to each cell
-// function addHoverEffectToCells() {
-//     const cells = document.querySelectorAll('.cell');
-//     cells.forEach((cell) => {
-//         cell.addEventListener('mouseover', function () {
-//             const row = parseInt(this.dataset.row);
-//             const col = parseInt(this.dataset.col);
-//             handleCellHover(row, col);
-//         });
-//     });
-// }
-
-// // Call the function to add hover effect to cells after rendering the game board
-// //   renderGameBoard();
-// addHoverEffectToCells();
