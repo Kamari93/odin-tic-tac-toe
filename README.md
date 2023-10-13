@@ -17,7 +17,7 @@ This is a simple implementation of Tic Tac Toe using HTML, CSS, and Vanilla Java
 - **Scoreboard**: Keep track of wins and draws for each player.
 - **CPU Player**: Option to play against the computer.
 - **Result Display**: Informative display ribbon for game results.
-- **Reset Functionality**: Restart the game or reset the entire match.
+- **Reset Functionality**: Restart the entire game or reset the current match (board and scores).
 
 ## How to Play
 
