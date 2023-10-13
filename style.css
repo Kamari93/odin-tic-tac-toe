@@ -5,7 +5,9 @@
   --secondary-color:rgb(66, 89, 91);
   --third-color: orange;
   --fourth-color: rgb(111, 150, 150);
-  --fifth-color: rgb(120, 191, 120)
+  --fifth-color: rgb(120, 191, 120);
+  --hoverX: rgba(255, 166, 0, 0.311);
+  --hoverO: rgba(120, 191, 120, 0.31);
 }
 
 * {
@@ -270,9 +272,9 @@ body {
 }
 
 
-
+/* Hover effects for current player move */
 .hover-effect {
-  color: var(--primary-color); /* Set the text color for 'X' */
+  /* color: var(--primary-color); Set the text color for 'X' */
   font-weight: bold; /* Make the symbol bold if needed */
 }
 

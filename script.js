@@ -101,19 +101,29 @@ function renderGameBoard() {
 
 // Function to handle hover effect on cells
 function handleCellHover(row, col) {
+    // select the specific cell based on the row and col indices in the grid. The formula (row * 3 + col + 1) is used to calculate the cell's position in a linear order within the grid. + 1: row * 3: This calculates the starting index of the row in a linear order (assuming a 3x3 grid). col: This represents the column index within the row. It adds 1 because the :nth-child selector uses a 1-based index (unlike JavaScript arrays which are 0-based).
     const cell = document.querySelector(`.grid-container .cell:nth-child(${row * 3 + col + 1})`);
 
-    if (cell.textContent === '') {
+    if (cell.textContent === '' && currentPlayer) {
         // Only apply hover effect to empty cells
         cell.classList.add('hover-effect');
         cell.textContent = currentPlayer.symbol;
+
+        let hoverColor = document.querySelector('.hover-effect');
+        if (currentPlayer.symbol === 'X') {
+            hoverColor.style.color = 'var(--hoverX)';
+        } else {
+            hoverColor.style.color = 'var(--hoverO';
+        }
     }
 }
 
 // Function to clear hover effect
 function clearHoverEffect() {
+    // select all cells that do not have the class 'X' or 'O', meaning it selects all empty cells.
     const emptyCells = document.querySelectorAll('.grid-container .cell:not(.X):not(.O)');
 
+    // iterate over the selected empty cells and remove the hover-effect class, effectively clearing the hover effect.
     emptyCells.forEach(cell => {
         cell.classList.remove('hover-effect');
         cell.textContent = '';
