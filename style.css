@@ -34,6 +34,8 @@ body {
   color: var(--fourth-color);
   border: none;
   border-radius: 5px;
+  width: 110px;
+  font-size: 75%;
 }
 
 #reset:hover, #restart:hover {
@@ -124,7 +126,7 @@ body {
 }
 
 #current-player {
-  width: 150px;
+  width: 200px;
   text-align: center;
 }
 
@@ -230,7 +232,7 @@ body {
   transform: translate(-50%, -50%);
   background-color: var(--primary-color);
   color: #fff;
-  padding: 15px;
+  padding: 13px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   text-align: center;
@@ -245,12 +247,15 @@ body {
 .result-display button {
   background-color: transparent;
   color: #fff;
-  border: none;
-  font-size: 20px;
+  border: 3px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
   cursor: pointer;
-  position: absolute;
+  font-size: 18px;
+  /* position: absolute;
   top: 10px;
-  right: 10px;
+  right: 10px; */
 }
 
 /* Dim the background when the result modal is displayed */
@@ -271,4 +276,11 @@ body {
   font-weight: bold;
   color: var(--primary-color);
   pointer-events: none; /* Allow clicking through the hover element */
+}
+
+
+@media screen and (max-width: 700px) {
+  .grid-container {
+    margin-top: 15%;
+  }
 }

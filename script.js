@@ -284,8 +284,8 @@ function startGame() {
     }
 
     // Dynamically set the score titles to the players' inputted names w/out alt format using innerHTML
-    xTitleScore.innerHTML = `${playerX.name}[X]: <span id="x-wins">${xWins}</span>`;
-    oTitleScore.innerHTML = `${playerO.name}[O]: <span id="o-wins">${oWins}</span>`;
+    xTitleScore.innerHTML = `${playerX.name}<span id="x-wins">${xWins}</span>`;
+    oTitleScore.innerHTML = `${playerO.name} <span id="o-wins">${oWins}</span>`;
 
     // Set current player to player with X val as X always goes first
     currentPlayer = playerX;
@@ -406,26 +406,33 @@ function makeCPUMove() {
 function showResult(message, symbol) {
     const resultDisplay = document.getElementById('result-display');
     const resultMessage = document.getElementById('result-message');
+    const resultButton = document.getElementById('close-button');
 
     // Disable the board
     isBoardDisabled = true;
-
-    console.log(symbol)
-    console.log(`Player Symbol: ${currentPlayer.symbol}`)
 
     // Set the styles based on the winning symbol
     if (symbol === 'X') {
         resultMessage.style.setProperty('color', 'white');
         resultDisplay.style.setProperty('color', 'white');
         resultDisplay.style.setProperty('background-color', 'var(--third-color)');
+        resultButton.style.setProperty('border-color', 'white');
+        resultButton.style.setProperty('color', 'white');
+        resultButton.style.setProperty('background-color', 'var(--third-color)');
     } else if (symbol === 'O') {
         resultMessage.style.setProperty('color', 'white');
         resultDisplay.style.setProperty('color', 'white');
         resultDisplay.style.setProperty('background-color', 'var(--fifth-color)');
+        resultButton.style.setProperty('border-color', 'white');
+        resultButton.style.setProperty('color', 'white');
+        resultButton.style.setProperty('background-color', 'var(--fifth-color)');
     } else if (symbol === 'draw') {
         resultMessage.style.setProperty('color', 'var(--secondary-color)');
         resultDisplay.style.setProperty('color', 'var(--secondary-color)');
         resultDisplay.style.setProperty('background-color', 'var(--primary-color)');
+        resultButton.style.setProperty('border-color', 'var(--secondary-color)');
+        resultButton.style.setProperty('background-color', 'white');
+        resultButton.style.setProperty('color', 'var(--secondary-color)');
     }
 
     resultMessage.textContent = message;
@@ -456,7 +463,7 @@ function updateCurrentPlayer() {
     const playerSymbolSpan = document.getElementById('player-symbol');
 
     playerNameSpan.textContent = currentPlayer.name;
-    playerSymbolSpan.textContent = currentPlayer.symbol;
+    playerSymbolSpan.textContent = `${currentPlayer.symbol} Move`;
 
     // Set text color based on the symbol
     if (currentPlayer.symbol === 'X') {

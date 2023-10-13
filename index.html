@@ -8,10 +8,10 @@
   </head>
   <body>
     <div class="header">
-      <button id="reset">Reset</button>
+      <button id="reset">Reset Match</button>
       <!-- <div id="current-player">Current Player:</div>  -->
       <div id="current-player"><span id="player-name">X</span>'s Turn: <span id="player-symbol"></span></div>
-      <button id="restart" onclick="restartPage()">Restart</button>
+      <button id="restart" onclick="restartPage()">Restart Game</button>
     </div>
 
     <!-- Modal for the setup phase -->
@@ -65,7 +65,7 @@
     <!-- Add this element for the display ribbon -->
     <div id="result-display" class="result-display">
       <p id="result-message"></p>
-      <button id="close-button" onclick="closeResultDisplay()">x</button>
+      <button id="close-button" onclick="closeResultDisplay()">Play Again</button>
     </div>
 
 
@@ -73,9 +73,9 @@
       <!-- The game board will be rendered here -->
     </div>
     <div id="score-board">
-      <p id="x-title">Player X: <span id="x-wins">0</span></p>
-      <p id="draws-title">Draws: <span id="draws">0</span></p>
-      <p id="o-title">Player O: <span id="o-wins">0</span></p>
+      <p id="x-title">Player X <span id="x-wins">0</span></p>
+      <p id="draws-title">Draws <span id="draws">0</span></p>
+      <p id="o-title">Player O <span id="o-wins">0</span></p>
     </div>
   </body>
   <script src="script.js"></script>
