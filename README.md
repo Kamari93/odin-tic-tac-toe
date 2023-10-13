@@ -1,4 +1,4 @@
-# Odin Tic Tac Toe Game
+# Odin Project: Tic Tac Toe 
 
 This is a simple implementation of Tic Tac Toe using HTML, CSS, and Vanilla JavaScript.
 
