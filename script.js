@@ -404,36 +404,19 @@ function handlePlayerMove(row, col) {
 
 // Function to make a move for the CPU player
 function makeCPUMove() {
-    // Generate random row and column indices for the CPU move
-    let row, col;
-    do {
-        // math.floor will give random vals in range (0 - 2) for row and col since total count for both is 3
-        row = Math.floor(Math.random() * 3);
-        col = Math.floor(Math.random() * 3);
-        // keep generating random coordinates until empty cell is found and pop w/ cpuMove
-    } while (!gameBoard.setCell(row, col, currentPlayer.symbol));
+    // Check if there's a winning move and make it
+    if (makeWinningMove()) {
+        return;
+    }
 
-    // Update the game board display
-    renderGameBoard();
+    // If there's no winning move, make a random move
+    makeRandomMove();
 
-    // Check if the CPU has won or if it's a draw
-    if (checkWinner()) {
-        // Delay the alert to allow time for rendering
+    // Check for a draw after the random move
+    if (checkDraw()) {
         setTimeout(() => {
-            // Update win counters
-            updateWins();
-            // alert(`${currentPlayer.name} Won!`);
-            showResult(`${currentPlayer.name} Won!`, currentPlayer.symbol);
-            // resetGame();
-        }, 500);
-    } else if (checkDraw()) {
-        // Delay the alert to allow time for rendering
-        setTimeout(() => {
-            // Update tie counter
             updateDraws();
-            // alert(`It's a Draw!`);
             showResult("It's a Draw!", 'draw');
-            // resetGame();
         }, 500);
     } else {
         // Switch to the other player
@@ -441,6 +424,51 @@ function makeCPUMove() {
     }
 }
 
+// CPUMove Helper Function to make a winning move if possible
+function makeWinningMove() {
+    let board = gameBoard.getBoard();
+
+    // Check each cell for a potential winning move
+    for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+            if (board[row][col] === null) {
+                // Try making the move
+                board[row][col] = currentPlayer.symbol;
+
+                // Check if the CPU wins with the above move on the board
+                if (checkWinner()) {
+                    // Update the game board display
+                    renderGameBoard();
+                    // Delay to show the result
+                    setTimeout(() => {
+                        updateWins();
+                        showResult(`${currentPlayer.name} Won!`, currentPlayer.symbol);
+                        // Switch to the other player after a delay
+                        setTimeout(switchPlayer, 500);
+                    }, 500);
+                    return true;
+                }
+
+                // Undo the move if it's not a win and move on to make random move fn
+                board[row][col] = null;
+            }
+        }
+    }
+
+    return false; // No winning move found
+}
+
+// CPUMove Helper Function to make a random move
+function makeRandomMove() {
+    let row, col;
+    do {
+        row = Math.floor(Math.random() * 3);
+        col = Math.floor(Math.random() * 3);
+    } while (!gameBoard.setCell(row, col, currentPlayer.symbol));
+
+    // Update the game board display
+    renderGameBoard();
+}
 
 // Function to display the result ribbon
 function showResult(message, symbol) {
@@ -581,6 +609,4 @@ renderGameBoard();
 // Example of using the replace fn to change score titles from startGame fn
 // xTitleScore.textContent = xTitleScore.textContent.replace(/Player X/g, `${playerX.name} (${playerX.symbol})`);
 // oTitleScore.textContent = oTitleScore.textContent.replace(/Player O/g, `${playerO.name} (${playerO.symbol})`);
-
-
 
