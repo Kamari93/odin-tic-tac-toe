@@ -104,6 +104,7 @@ function handleCellHover(row, col) {
     // select the specific cell based on the row and col indices in the grid. The formula (row * 3 + col + 1) is used to calculate the cell's position in a linear order within the grid. + 1: row * 3: This calculates the starting index of the row in a linear order (assuming a 3x3 grid). col: This represents the column index within the row. It adds 1 because the :nth-child selector uses a 1-based index (unlike JavaScript arrays which are 0-based).
     const cell = document.querySelector(`.grid-container .cell:nth-child(${row * 3 + col + 1})`);
 
+    // only add hover effect if cell is empty, the game has started (players are valid), & board isn't disabled b/c (current match is in progress)
     if (cell.textContent === '' && currentPlayer && !isBoardDisabled) {
         // Only apply hover effect to empty cells
         cell.classList.add('hover-effect');
@@ -306,6 +307,24 @@ function startGame() {
 
     const xTitleScore = document.getElementById('x-title');
     const oTitleScore = document.getElementById('o-title');
+
+    // Validate player names based on the number of players
+    if (numPlayersInput == 1) {
+        const player1Name = document.getElementById('player1-name').value;
+        if (!player1Name) {
+            alert("Please enter a name for Player 1.");
+            // if the validation fails the return statement prevents the rest of the startGame function from executing and basically resets it.
+            return;
+        }
+    } else if (numPlayersInput == 2) {
+        const player1NameII = document.getElementById('player1-name-2').value;
+        const player2Name = document.getElementById('player2-name').value;
+        if (!player1NameII || !player2Name) {
+            alert("Please enter names for both players.");
+            // if the validation fails the return statement prevents the rest of the startGame function from executing and basically resets it.
+            return;
+        }
+    }
 
 
     // use loose equality operator to check numPlayersInput since val is str-num

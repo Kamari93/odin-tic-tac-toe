@@ -17,8 +17,9 @@
     <!-- Modal for the setup phase -->
     <div id="setup-modal" class="modal">
       <div class="modal-content">
-          <label for="num-players"><p>How many players? (1 or 2)</p></label>
+          <label id="setup" for="num-players"><p>How many players? (1 or 2): </p>
           <input type="number" id="num-players" min="1" max="2">
+        </label>
           <br>
           <button onclick="handlePlayerSetup()">Next</button>
           <!-- <button id="next-button">Next</button> -->
@@ -38,7 +39,6 @@
           <input type="text" id="player1-name">
           <br>
           <button onclick="startGame()">Start Game</button>
-          <!-- <button id="start-game-button">Start Game</button> -->
       </div>
     </div>
 
@@ -53,7 +53,7 @@
           <label for="player1-name-2">Enter Player 1's name:</label>
           <input type="text" id="player1-name-2">
           <br>
-          <p>Player 2, your symbol is: <span id="player2-symbol-display"></span></p>
+          <p id="player-2-symbol">Player 2, your symbol is: <span id="player2-symbol-display"></span></p>
           <label for="player2-name">Enter Player 2's name:</label>
           <input type="text" id="player2-name">
           <br>

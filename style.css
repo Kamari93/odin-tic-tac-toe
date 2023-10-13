@@ -28,6 +28,21 @@ body {
   padding: 10px;
 }
 
+#setup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 10px; /* Add margin for spacing */
+}
+
+#num-players {
+  width: 15%;
+  text-align: center;
+  margin-left: 5px;
+  margin-top: 15px; /* Add margin for spacing */
+}
+
 #reset, #restart {
   padding: 10px;
   cursor: pointer;
@@ -42,6 +57,7 @@ body {
 
 #reset:hover, #restart:hover {
   background-color: var(--primary-color);
+  color: #fff;
 }
 
 /* Add some basic styling for the game board cells */
@@ -198,7 +214,7 @@ body {
 }
 
 .modal-content input,
-.modal-content select {
+.modal-content select, #player-2-symbol {
   width: 100%;
   padding: 8px;
   margin-bottom: 16px;
@@ -211,9 +227,11 @@ body {
   background-color: var(--primary-color);
   /* color: #fff; */
   color: var(--fourth-color);
-  padding: 8px;
+  padding: 10px;
+  font-size: 18px;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
+  width: 45%;
   cursor: pointer;
 }
 
