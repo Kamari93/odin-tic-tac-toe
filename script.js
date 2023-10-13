@@ -16,7 +16,7 @@ let oWins = 0;
 let isBoardDisabled = false;
 
 // add hover symbol
-let hoverSymbol;
+// let hoverSymbol;
 
 // Define the game board module the board is a 2-D array
 const gameBoard = (() => {
@@ -75,10 +75,19 @@ function renderGameBoard() {
             cell.classList.add('cell');
             cell.textContent = boardData[row][col]; // Use data from the GameBoard module
 
-            // Dynamically set the class based on the content
+            // Dynamically set the class based on the content for symbol styling
             if (boardData[row][col] === 'X' || boardData[row][col] === 'O') {
                 cell.classList.add(boardData[row][col]);
             }
+
+            // Add event listeners for hover effect
+            cell.addEventListener('mouseover', () => {
+                handleCellHover(row, col);
+            });
+
+            cell.addEventListener('mouseout', () => {
+                clearHoverEffect();
+            });
 
             gameBoardContainer.appendChild(cell);
 
@@ -89,6 +98,27 @@ function renderGameBoard() {
         };
     }
 };
+
+// Function to handle hover effect on cells
+function handleCellHover(row, col) {
+    const cell = document.querySelector(`.grid-container .cell:nth-child(${row * 3 + col + 1})`);
+
+    if (cell.textContent === '') {
+        // Only apply hover effect to empty cells
+        cell.classList.add('hover-effect');
+        cell.textContent = currentPlayer.symbol;
+    }
+}
+
+// Function to clear hover effect
+function clearHoverEffect() {
+    const emptyCells = document.querySelectorAll('.grid-container .cell:not(.X):not(.O)');
+
+    emptyCells.forEach(cell => {
+        cell.classList.remove('hover-effect');
+        cell.textContent = '';
+    });
+}
 
 // Player factory function
 function Player(name, symbol, isCPU = false) {
@@ -290,7 +320,7 @@ function startGame() {
     // Set current player to player with X val as X always goes first
     currentPlayer = playerX;
 
-    hoverSymbol = currentPlayer.symbol;
+    // hoverSymbol = currentPlayer.symbol;
 
     // Initialize the game board (clear previous state)
     gameBoard.clearBoard();
@@ -544,45 +574,45 @@ renderGameBoard();
 
 
 
-// Function to handle hover effect on cells
-function handleCellHover(row, col) {
-    const currentBoard = gameBoard.getBoard();
+// // Function to handle hover effect on cells
+// function handleCellHover(row, col) {
+//     const currentBoard = gameBoard.getBoard();
 
-    // Check if the cell is empty and it's the player's turn
-    if (currentBoard[row][col] === null && currentPlayer.isCPU === false) {
-        // Create a temporary element for the hover effect
-        const hoverElement = document.createElement('div');
-        hoverElement.classList.add('hover-effect');
-        hoverElement.textContent = currentPlayer.symbol;
+//     // Check if the cell is empty and it's the player's turn
+//     if (currentBoard[row][col] === null && currentPlayer.isCPU === false) {
+//         // Create a temporary element for the hover effect
+//         const hoverElement = document.createElement('div');
+//         hoverElement.classList.add('hover-effect');
+//         hoverElement.textContent = currentPlayer.symbol;
 
-        // Position the hover element on the cell
-        const cell = document.querySelector(`#game-board .cell[data-row="${row}"][data-col="${col}"]`);
-        const rect = cell.getBoundingClientRect();
-        hoverElement.style.top = rect.top + 'px';
-        hoverElement.style.left = rect.left + 'px';
+//         // Position the hover element on the cell
+//         const cell = document.querySelector(`#game-board .cell[data-row="${row}"][data-col="${col}"]`);
+//         const rect = cell.getBoundingClientRect();
+//         hoverElement.style.top = rect.top + 'px';
+//         hoverElement.style.left = rect.left + 'px';
 
-        // Append the hover element to the body
-        document.body.appendChild(hoverElement);
+//         // Append the hover element to the body
+//         document.body.appendChild(hoverElement);
 
-        // Remove the hover element after a short delay
-        setTimeout(() => {
-            document.body.removeChild(hoverElement);
-        }, 500);
-    }
-}
+//         // Remove the hover element after a short delay
+//         setTimeout(() => {
+//             document.body.removeChild(hoverElement);
+//         }, 500);
+//     }
+// }
 
-// Add event listeners for hover effect to each cell
-function addHoverEffectToCells() {
-    const cells = document.querySelectorAll('.cell');
-    cells.forEach((cell) => {
-        cell.addEventListener('mouseover', function () {
-            const row = parseInt(this.dataset.row);
-            const col = parseInt(this.dataset.col);
-            handleCellHover(row, col);
-        });
-    });
-}
+// // Add event listeners for hover effect to each cell
+// function addHoverEffectToCells() {
+//     const cells = document.querySelectorAll('.cell');
+//     cells.forEach((cell) => {
+//         cell.addEventListener('mouseover', function () {
+//             const row = parseInt(this.dataset.row);
+//             const col = parseInt(this.dataset.col);
+//             handleCellHover(row, col);
+//         });
+//     });
+// }
 
-// Call the function to add hover effect to cells after rendering the game board
-//   renderGameBoard();
-addHoverEffectToCells();
+// // Call the function to add hover effect to cells after rendering the game board
+// //   renderGameBoard();
+// addHoverEffectToCells();

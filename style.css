@@ -269,13 +269,11 @@ body {
   z-index: 999; /* Ensure it's behind the result modal */
 }
 
-/* CSS for the hover effect */
+
+
 .hover-effect {
-  position: fixed;
-  font-size: 40px;
-  font-weight: bold;
-  color: var(--primary-color);
-  pointer-events: none; /* Allow clicking through the hover element */
+  color: var(--primary-color); /* Set the text color for 'X' */
+  font-weight: bold; /* Make the symbol bold if needed */
 }
 
 
