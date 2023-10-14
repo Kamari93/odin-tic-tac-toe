@@ -312,6 +312,6 @@ body {
 /* target any case when width is greater than height */
 @media screen and (min-aspect-ratio: 4/3) {
   .result-display {
-    top: 18%; /* Adjust this value as needed to bring the ribbon down */
+    top: 28%; /* Adjust this value as needed to bring the ribbon down */
   }
 }
