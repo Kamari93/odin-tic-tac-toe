@@ -309,9 +309,24 @@ body {
   }
 };
 
+@media screen and (max-height: 700px) {
+  .result-display {
+    /* padding: 5px; */
+    /* height: 20%; */
+    top: 15%;
+  }
+}
+
+
+@media screen and (orientation: landscape) {
+  .result-display {
+    top: 15%; /* Adjust this value as needed to bring the ribbon down */
+  }
+}
+
 /* target any case when width is greater than height */
 @media screen and (min-aspect-ratio: 4/3) {
   .result-display {
-    top: 35%; /* Adjust this value as needed to bring the ribbon down */
+    top: 15%; /* Adjust this value as needed to bring the ribbon down */
   }
 }
