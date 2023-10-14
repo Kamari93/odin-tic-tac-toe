@@ -308,3 +308,10 @@ body {
     font-size: 90%;
   }
 };
+
+@media screen and (max-height: 700px) {
+  .result-display {
+    padding: 5px;
+    height: 20%;
+  }
+}
