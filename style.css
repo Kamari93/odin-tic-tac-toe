@@ -305,6 +305,12 @@ body {
 
 @media screen and (max-width: 750px) {
   #reset, #restart {
+    font-size: 50%;
+  }
+};
+
+@media screen and (max-width: 1000px) {
+  #reset, #restart {
     font-size: 90%;
   }
 };
