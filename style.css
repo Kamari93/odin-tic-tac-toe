@@ -309,10 +309,8 @@ body {
   }
 };
 
-@media screen and (max-height: 700px) {
+@media screen and (orientation: landscape) {
   .result-display {
-    padding: 5px;
-    height: 20%;
-    top: 10%;
+    top: 15%; /* Adjust this value as needed to bring the ribbon down */
   }
 }
