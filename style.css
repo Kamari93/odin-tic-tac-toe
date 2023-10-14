@@ -300,5 +300,9 @@ body {
 @media screen and (max-width: 700px) {
   .grid-container {
     margin-top: 15%;
+  };
+
+  #reset, #restart {
+    font-size: 65%;
   }
 }
