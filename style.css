@@ -311,6 +311,6 @@ body {
 
 @media screen and (orientation: landscape) {
   .result-display {
-    top: 15%; /* Adjust this value as needed to bring the ribbon down */
+    top: 25%; /* Adjust this value as needed to bring the ribbon down */
   }
 }
