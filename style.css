@@ -313,5 +313,6 @@ body {
   .result-display {
     padding: 5px;
     height: 20%;
+    top: 10%;
   }
 }
