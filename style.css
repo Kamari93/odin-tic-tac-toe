@@ -299,7 +299,8 @@ body {
 
 @media screen and (max-width: 700px) {
   .grid-container {
-    margin-top: 15%;
+    /* margin-top: 15%; */
+    margin-top: 20%;
   };
 }
 
@@ -307,10 +308,6 @@ body {
   #reset, #restart {
     font-size: 65%;
   };
-
-  .grid-container {
-    margin-top: 8%;
-  }
 };
 
 @media screen and (max-width: 1000px) {
