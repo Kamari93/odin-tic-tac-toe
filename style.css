@@ -314,3 +314,9 @@ body {
     top: 40%; /* Adjust this value as needed to bring the ribbon down */
   }
 }
+
+@media screen and (min-aspect-ratio: 4/3) {
+  .result-display {
+    top: 40%; /* Adjust this value as needed to bring the ribbon down */
+  }
+}
