@@ -315,7 +315,7 @@ body {
   }
 
   #reset, #restart {
-    font-size: 100%;
+    font-size: 20px;
   }
 }
 
@@ -326,7 +326,7 @@ body {
   }
 
   #reset, #restart {
-    font-size: 100%;
+    font-size: 20px;
   }
 }
 
@@ -337,6 +337,6 @@ body {
   }
 
   #reset, #restart {
-    font-size: 100%;
+    font-size: 20px;
   }
 }
