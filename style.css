@@ -303,7 +303,7 @@ body {
   };
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 750px) {
   #reset, #restart {
     font-size: 90%;
   }
@@ -313,10 +313,6 @@ body {
   .result-display {
     top: 15%;
   }
-
-  #reset, #restart {
-    font-size: 90%;
-  }
 }
 
 
@@ -324,19 +320,11 @@ body {
   .result-display {
     top: 15%; /* Adjust this value as needed to bring the ribbon down */
   }
-
-  #reset, #restart {
-    font-size: 90%;
-  }
 }
 
 /* target any case when width is greater than height */
 @media screen and (min-aspect-ratio: 4/3) {
   .result-display {
     top: 15%; /* Adjust this value as needed to bring the ribbon down */
-  }
-
-  #reset, #restart {
-    font-size: 90%;
   }
 }
