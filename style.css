@@ -313,7 +313,7 @@ body {
   };
 };
 
-@media screen and (max-width: 1000px) {
+@media screen and (min-width: 950px) {
   #reset, #restart {
     font-size: 90%;
   }
