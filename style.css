@@ -299,8 +299,11 @@ body {
 
 @media screen and (max-width: 700px) {
   .grid-container {
-    /* margin-top: 15%; */
-    margin-top: 20%;
+    margin-top: 15%;
+  };
+
+  .result-display {
+    margin-bottom: 10%;
   };
 }
 
