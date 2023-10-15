@@ -319,7 +319,7 @@ body {
   }
 };
 
-/* @media screen and (max-height: 700px) {
+@media screen and (max-height: 700px) {
   .result-display {
     top: 15%;
   }
@@ -327,7 +327,7 @@ body {
   #reset, #restart {
     font-size: 50%;
   }
-} */
+}
 
 
 @media screen and (orientation: landscape) {
