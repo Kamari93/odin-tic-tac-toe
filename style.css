@@ -307,11 +307,11 @@ body {
   };
 }
 
-/* @media screen and (max-width: 750px) {
+@media screen and (max-width: 750px) {
   #reset, #restart {
     font-size: 65%;
   };
-}; */
+};
 
 @media screen and (min-width: 950px) {
   #reset, #restart {
